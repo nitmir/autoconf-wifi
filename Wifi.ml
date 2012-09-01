@@ -1,6 +1,6 @@
 
 
-let version = [(1,"Windows Vista","6.0");(2,"WIndows 7","6.1")];;
+let version = [(1,"Windows Vista","6.0");(2,"Windows 7","6.1")];;
 let current = ref 0;;
 let list()=
 	let rec aux l=match l with
@@ -18,6 +18,12 @@ let get_from_version str  =
 		| [] -> 0
 		| (i,_,s)::q when s=str -> i
 		| (i,_,s)::q -> aux q in
+	aux version;;
+let name_from_int int = 
+	let rec aux l = match l with
+		| [] -> ""
+		| (i,name,_)::q when i=int -> name
+		| a::q -> aux q in
 	aux version;;
 
 
@@ -219,8 +225,8 @@ while not (valid()) do
 		Scanf.bscanf Scanf.Scanning.stdib "%s\n" (fun a ->current:=int_of_string a);
 	with Failure("int_of_string") ->();
 done;;
+Printf.printf "%s\n" (name_from_int !current);;
 import_cert();;
-(*Printf.printf "%s\n" file_name;;*)
 if !current = 1 then begin
 fun1();
 end;
