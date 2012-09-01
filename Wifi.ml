@@ -179,13 +179,15 @@ let rec print_l l= match l with
 	|s::q -> print_string (s^"\n");print_l q;;
 
 let version()=
-	let ret,output=run "ver" in
-	let reg=Str.regexp " " in
-	let ver=Array.of_list (Str.split reg output.(1)) in
-	let reg=Str.regexp "\\." in
-	let ver=Array.of_list (Str.split reg ver.(3)) in
-	let ver=(ver.(0) ^"."^ ver.(1) ) in
-	get_from_version ver;;
+	try 
+		let ret,output=run "ver" in
+		let reg=Str.regexp " " in
+		let ver=Array.of_list (Str.split reg output.(1)) in
+		let reg=Str.regexp "\\." in
+		let ver=Array.of_list (Str.split reg ver.(3)) in
+		let ver=(ver.(0) ^"."^ ver.(1) ) in
+		get_from_version ver;
+	with _ -> 0;;
 	
 	
 (*let _ = GMain.init ()
