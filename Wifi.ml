@@ -1,18 +1,23 @@
 
 
-
-let version = [(1,"Windows Vista");(2,"WIndows 7")];;
+let version = [(1,"Windows Vista","6.0");(2,"WIndows 7","6.1")];;
 let current = ref 0;;
 let list()=
 	let rec aux l=match l with
 		| [] -> ()
-		| (i,s)::q -> Printf.printf "	(%d) %s\n" i s;aux q in
+		| (i,s,_)::q -> Printf.printf "	(%d) %s\n" i s;aux q in
 	aux version;;
 let valid()=
 	let rec aux l=match l with
 		| [] -> false
-		| (i,s)::q when !current=i -> true
-		| (i,s)::q -> aux q in
+		| (i,s,_)::q when !current=i -> true
+		| (i,s,_)::q -> aux q in
+	aux version;;
+let get_from_version str  = 
+	let rec aux l = match l with
+		| [] -> 0
+		| (i,_,s)::q when s=str -> i
+		| (i,_,s)::q -> aux q in
 	aux version;;
 
 
@@ -78,7 +83,7 @@ let seven_xml="<?xml version=\"1.0\"?>
 				<authentication>WPA2</authentication>
 				<encryption>AES</encryption>
 				<useOneX>true</useOneX>
-				<FIPSMode xmlns=\"http://www.microsoft.com/networking/WLAN/profile/v2\">true</FIPSMode>
+				<FIPSMode xmlns=\"http://www.microsoft.com/networking/WLAN/profile/v2\">false</FIPSMode>
 			</authEncryption>
 			<PMKCacheMode>disabled</PMKCacheMode>
 			<OneX xmlns=\"http://www.microsoft.com/networking/OneX/v1\">
@@ -119,6 +124,21 @@ let vista_xml="<?xml version=\"1.0\"?>
 </WLANProfile>
 ";;
 
+let run str=
+	let tmp_name=Filename.temp_file "tmp" ".txt" in
+	let ret =Sys.command (Printf.sprintf "%s > %s" str tmp_name) in
+	let tmp=open_in tmp_name in
+	let l=ref [] in
+	let _ =try
+		while true do
+			l:=(input_line tmp):: !l;
+		done
+	with End_of_file -> () in
+	l:=List.rev !l;
+	(*let output=String.concat "" !l in*)
+	close_in tmp;
+	Sys.remove tmp_name;
+	ret,Array.of_list !l;;
 
 
 let ret=ref 0;;
@@ -127,7 +147,7 @@ let ca_name,ca=Filename.open_temp_file "root" ".crt" in
 output_string ca cacert;
 flush_all();
 close_out ca;
-ret:= (Sys.command (Printf.sprintf "certutil.exe -addstore root %s" ca_name));
+ret:= (Sys.command (Printf.sprintf "certutil.exe -addstore root %s | tail -n 1" ca_name));
 Sys.remove ca_name;;
 
 
@@ -154,23 +174,21 @@ Printf.printf "Appuyer sur une touche pour continuer\n";
 flush_all();
 Scanf.bscanf Scanf.Scanning.stdib "%s" (fun a ->());;
 
+let rec print_l l= match l with
+	|[]->()
+	|s::q -> print_string (s^"\n");print_l q;;
 
 let version()=
-	let f=Unix.descr_of_in_channel (
-		Unix.open_process_in "ver"
-		) in
-	let str=(String.create 1024) in
-	print_int (Unix.read f str 0 1024);
-	print_string str;;
-	(*
-	let reg=Str.regexp "[0-9]\\.[0-9]" in 
-	let l=Str.split reg str in
-	match l with 
-		[s] -> print_string s;;*)
-
-version();;
-exit(0);;
-let _ = GMain.init ()
+	let ret,output=run "ver" in
+	let reg=Str.regexp " " in
+	let ver=Array.of_list (Str.split reg output.(1)) in
+	let reg=Str.regexp "\\." in
+	let ver=Array.of_list (Str.split reg ver.(3)) in
+	let ver=(ver.(0) ^"."^ ver.(1) ) in
+	get_from_version ver;;
+	
+	
+(*let _ = GMain.init ()
 
 (* Fenêtre principale de l'application. *)
 let window = GWindow.window 
@@ -188,8 +206,8 @@ let _ =
   window#connect#destroy ~callback:GMain.quit;
   say_hello#connect#clicked ~callback:import_cert;
   window#show ();
-  GMain.main ()
-(*
+  GMain.main ()*)
+current:=version();;
 while not (valid()) do
 	Printf.printf "Liste des sytŠmes support‚s\n";
 	list();
@@ -208,4 +226,3 @@ if !current = 2 then begin
 fun2();
 end;
 pause();;
-*)
