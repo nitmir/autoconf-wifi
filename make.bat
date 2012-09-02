@@ -1,11 +1,13 @@
+PATH=%PATH%:C:\cygwin\bin
 del Wifi.exe
 
-ocamlopt unix.cmxa str.cmxa Wifi.ml -o Wifi.exe
-REM ~ ocamlopt -I +site-lib/lablgtk2 lablgtk.cmxa unix.cmxa str.cmxa Wifi.ml -o Wifi.exe
+ocamlopt -c cert.ml
+ocamlopt -c wifi_xml.ml
+ocamlopt str.cmxa cert.cmx wifi_xml.cmx Wifi.ml -o Wifi.exe
 
-del Wifi.cmi
-del Wifi.cmx
-del Wifi.o
+del *.cmi
+del *.cmx
+del *.o
 del Wifi.exe.bak
 pause
 IsReMan.exe /manifest:Wifi.manifest Wifi.exe
