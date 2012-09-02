@@ -1,4 +1,9 @@
+let pause()=
+Printf.printf "Appuyer sur une touche pour continuer\n";
+flush_all();
+Scanf.bscanf Scanf.Scanning.stdib "%s" (fun a ->());;
 
+let exit int = pause(); exit int;;
 
 let version = [(1,"Windows Vista","6.0");(2,"Windows 7","6.1")];;
 let current = ref 0;;
@@ -191,40 +196,23 @@ let run str=
 
 
 let ret=ref 0;;
-let import_cert()=
+let import_cert str cert success=
 	let ca_name,ca=Filename.open_temp_file "root" ".crt" in
-	output_string ca cacert;
+	output_string ca str;
 	flush_all();
 	close_out ca;
-	let code,output=run (Printf.sprintf "certutil.exe -addstore root %s" ca_name) in
+	let code,output=run (Printf.sprintf "certutil.exe -addstore %s %s" cert ca_name) in
 	ret:= code;
 	let i=Array.length output - 1 in
 	if code=0 then begin
-		if i>=0 then
-			print_string (output.(i));
+		if i>=0 then begin
+			print_string (success);
+			print_newline();
+		end
 	end else begin
 			for j=0 to i do
-				print_string (output.(i));
-			done;
-			Sys.remove ca_name;
-			exit(code);
-	end;
-	Sys.remove ca_name;;
-	
-let import_class3()=
-	let ca_name,ca=Filename.open_temp_file "root" ".crt" in
-	output_string ca class3;
-	flush_all();
-	close_out ca;
-	let code,output=run (Printf.sprintf "certutil.exe -addstore root %s" ca_name) in
-	ret:= code;
-	let i=Array.length output - 1 in
-	if code=0 then begin
-		if i>=0 then
-			print_string (output.(i));
-	end else begin
-			for j=0 to i do
-				print_string (output.(i));
+				print_string (output.(j));
+				print_newline();
 			done;
 			Sys.remove ca_name;
 			exit(code);
@@ -232,28 +220,14 @@ let import_class3()=
 	Sys.remove ca_name;;
 
 
-let fun1()=
+let add_profile str=
 let file_name,file=Filename.open_temp_file "c@ns" ".xml" in
-output_string file vista_xml;
+output_string file str;
 flush_all();
 ret:= (Sys.command (Printf.sprintf "netsh wlan add profile filename=\"%s\" user=current" file_name));
 close_out file;
 Sys.remove file_name;;
 
-
-let fun2()=
-let file_name,file=Filename.open_temp_file "c@ns" ".xml" in
-output_string file seven_xml;
-flush_all();
-ret:= (Sys.command (Printf.sprintf "netsh wlan add profile filename=\"%s\" user=current" file_name));
-close_out file;
-Sys.remove file_name;;
-
-
-let pause()=
-Printf.printf "Appuyer sur une touche pour continuer\n";
-flush_all();
-Scanf.bscanf Scanf.Scanning.stdib "%s" (fun a ->());;
 
 let rec print_l l= match l with
 	|[]->()
@@ -300,13 +274,13 @@ while not (valid()) do
 		Scanf.bscanf Scanf.Scanning.stdib "%s\n" (fun a ->current:=int_of_string a);
 	with Failure("int_of_string") ->();
 done;;
-Printf.printf "%s\n" (name_from_int !current);;
-import_cert();;
+Printf.printf "Configuration pour %s.\n" (name_from_int !current);;
+import_cert cacert "root" "Certificat racine import‚.";;
+import_cert class3 "CA" "Certificat interm‚diaire import‚.";;
 if !current = 1 then begin
-fun1();
+add_profile vista_xml;
 end;
 if !current = 2 then begin
-fun2();
+add_profile seven_xml;
 end;
-pause();
 exit(!ret);;
