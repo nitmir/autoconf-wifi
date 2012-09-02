@@ -153,7 +153,11 @@ let ca_name,ca=Filename.open_temp_file "root" ".crt" in
 output_string ca cacert;
 flush_all();
 close_out ca;
-ret:= (Sys.command (Printf.sprintf "certutil.exe -addstore root %s | tail -n 1" ca_name));
+let code,output=run (Printf.sprintf "certutil.exe -addstore root %s" ca_name) in
+ret:= code;
+let i=Array.length output - 1 in
+if i>=0 then
+print_string (output.(i));
 Sys.remove ca_name;;
 
 
