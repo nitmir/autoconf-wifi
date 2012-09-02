@@ -1,4 +1,4 @@
-PATH=%PATH%:C:\cygwin\bin
+PATH=%PATH%;C:\cygwin\bin
 del Wifi.exe
 
 ocamlopt -c cert.ml
