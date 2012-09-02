@@ -26,6 +26,49 @@ let name_from_int int =
 		| a::q -> aux q in
 	aux version;;
 
+let class3="-----BEGIN CERTIFICATE-----
+MIIHWTCCBUGgAwIBAgIDCkGKMA0GCSqGSIb3DQEBCwUAMHkxEDAOBgNVBAoTB1Jv
+b3QgQ0ExHjAcBgNVBAsTFWh0dHA6Ly93d3cuY2FjZXJ0Lm9yZzEiMCAGA1UEAxMZ
+Q0EgQ2VydCBTaWduaW5nIEF1dGhvcml0eTEhMB8GCSqGSIb3DQEJARYSc3VwcG9y
+dEBjYWNlcnQub3JnMB4XDTExMDUyMzE3NDgwMloXDTIxMDUyMDE3NDgwMlowVDEU
+MBIGA1UEChMLQ0FjZXJ0IEluYy4xHjAcBgNVBAsTFWh0dHA6Ly93d3cuQ0FjZXJ0
+Lm9yZzEcMBoGA1UEAxMTQ0FjZXJ0IENsYXNzIDMgUm9vdDCCAiIwDQYJKoZIhvcN
+AQEBBQADggIPADCCAgoCggIBAKtJNRFIfNImflOUz0Op3SjXQiqL84d4GVh8D57a
+iX3h++tykA10oZZkq5+gJJlz2uJVdscXe/UErEa4w75/ZI0QbCTzYZzA8pD6Ueb1
+aQFjww9W4kpCz+JEjCUoqMV5CX1GuYrz6fM0KQhF5Byfy5QEHIGoFLOYZcRD7E6C
+jQnRvapbjZLQ7N6QxX8KwuPr5jFaXnQ+lzNZ6MMDPWAzv/fRb0fEze5ig1JuLgia
+pNkVGJGmhZJHsK5I6223IeyFGmhyNav/8BBdwPSUp2rVO5J+TJAFfpPBLIukjmJ0
+FXFuC3ED6q8VOJrU0gVyb4z5K+taciX5OUbjchs+BMNkJyIQKopPWKcDrb60LhPt
+XapI19V91Cp7XPpGBFDkzA5CW4zt2/LP/JaT4NsRNlRiNDiPDGCbO5dWOK3z0luL
+oFvqTpa4fNfVoIZwQNORKbeiPK31jLvPGpKK5DR7wNhsX+kKwsOnIJpa3yxdUly6
+R9Wb7yQocDggL9V/KcCyQQNokszgnMyXS0XvOhAKq3A6mJVwrTWx6oUrpByAITGp
+rmB6gCZIALgBwJNjVSKRPFbnr9s6JfOPMVTqJouBWfmh0VMRxXudA/Z0EeBtsSw/
+LIaRmXGapneLNGDRFLQsrJ2vjBDTn8Rq+G8T/HNZ92ZCdB6K4/jc0m+YnMtHmJVA
+BfvpAgMBAAGjggINMIICCTAdBgNVHQ4EFgQUdahxYEyIE/B42Yl3tW3Fid+8sXow
+gaMGA1UdIwSBmzCBmIAUFrUyG9TH8+DmjvO90rA67rI5GNGhfaR7MHkxEDAOBgNV
+BAoTB1Jvb3QgQ0ExHjAcBgNVBAsTFWh0dHA6Ly93d3cuY2FjZXJ0Lm9yZzEiMCAG
+A1UEAxMZQ0EgQ2VydCBTaWduaW5nIEF1dGhvcml0eTEhMB8GCSqGSIb3DQEJARYS
+c3VwcG9ydEBjYWNlcnQub3JnggEAMA8GA1UdEwEB/wQFMAMBAf8wXQYIKwYBBQUH
+AQEEUTBPMCMGCCsGAQUFBzABhhdodHRwOi8vb2NzcC5DQWNlcnQub3JnLzAoBggr
+BgEFBQcwAoYcaHR0cDovL3d3dy5DQWNlcnQub3JnL2NhLmNydDBKBgNVHSAEQzBB
+MD8GCCsGAQQBgZBKMDMwMQYIKwYBBQUHAgEWJWh0dHA6Ly93d3cuQ0FjZXJ0Lm9y
+Zy9pbmRleC5waHA/aWQ9MTAwNAYJYIZIAYb4QgEIBCcWJWh0dHA6Ly93d3cuQ0Fj
+ZXJ0Lm9yZy9pbmRleC5waHA/aWQ9MTAwUAYJYIZIAYb4QgENBEMWQVRvIGdldCB5
+b3VyIG93biBjZXJ0aWZpY2F0ZSBmb3IgRlJFRSwgZ28gdG8gaHR0cDovL3d3dy5D
+QWNlcnQub3JnMA0GCSqGSIb3DQEBCwUAA4ICAQApKIWuRKm5r6R5E/CooyuXYPNc
+7uMvwfbiZqARrjY3OnYVBFPqQvX56sAV2KaC2eRhrnILKVyQQ+hBsuF32wITRHhH
+Va9Y/MyY9kW50SD42CEH/m2qc9SzxgfpCYXMO/K2viwcJdVxjDm1Luq+GIG6sJO4
+D+Pm1yaMMVpyA4RS5qb1MyJFCsgLDYq4Nm+QCaGrvdfVTi5xotSu+qdUK+s1jVq3
+VIgv7nSf7UgWyg1I0JTTrKSi9iTfkuO960NAkW4cGI5WtIIS86mTn9S8nK2cde5a
+lxuV53QtHA+wLJef+6kzOXrnAzqSjiL2jA3k2X4Ndhj3AfnvlpaiVXPAPHG0HRpW
+Q7fDCo1y/OIQCQtBzoyUoPkD/XFzS4pXM+WOdH4VAQDmzEoc53+VGS3FpQyLu7Xt
+hbNc09+4ufLKxw0BFKxwWMWMjTPUnWajGlCVI/xI4AZDEtnNp4Y5LzZyo4AQ5OHz
+0ctbGsDkgJp8E3MGT9ujayQKurMcvEp4u+XjdTilSKeiHq921F73OIZWWonO1sOn
+ebJSoMbxhbQljPI/lrMQ2Y1sVzufb4Y6GIIiNsiwkTjbKqGTqoQ/9SdlrnPVyNXT
+d+pLncdBu8fA46A/5H2kjXPmEkvfoXNzczqA6NXLji/L6hOn1kGLrPo8idck9U60
+4GGSt/M3mMS+lqO3ig==
+-----END CERTIFICATE-----
+";;
 
 let cacert="-----BEGIN CERTIFICATE-----
 MIIHPTCCBSWgAwIBAgIBADANBgkqhkiG9w0BAQQFADB5MRAwDgYDVQQKEwdSb290
@@ -149,16 +192,44 @@ let run str=
 
 let ret=ref 0;;
 let import_cert()=
-let ca_name,ca=Filename.open_temp_file "root" ".crt" in
-output_string ca cacert;
-flush_all();
-close_out ca;
-let code,output=run (Printf.sprintf "certutil.exe -addstore root %s" ca_name) in
-ret:= code;
-let i=Array.length output - 1 in
-if i>=0 then
-print_string (output.(i));
-Sys.remove ca_name;;
+	let ca_name,ca=Filename.open_temp_file "root" ".crt" in
+	output_string ca cacert;
+	flush_all();
+	close_out ca;
+	let code,output=run (Printf.sprintf "certutil.exe -addstore root %s" ca_name) in
+	ret:= code;
+	let i=Array.length output - 1 in
+	if code=0 then begin
+		if i>=0 then
+			print_string (output.(i));
+	end else begin
+			for j=0 to i do
+				print_string (output.(i));
+			done;
+			Sys.remove ca_name;
+			exit(code);
+	end;
+	Sys.remove ca_name;;
+	
+let import_class3()=
+	let ca_name,ca=Filename.open_temp_file "root" ".crt" in
+	output_string ca class3;
+	flush_all();
+	close_out ca;
+	let code,output=run (Printf.sprintf "certutil.exe -addstore root %s" ca_name) in
+	ret:= code;
+	let i=Array.length output - 1 in
+	if code=0 then begin
+		if i>=0 then
+			print_string (output.(i));
+	end else begin
+			for j=0 to i do
+				print_string (output.(i));
+			done;
+			Sys.remove ca_name;
+			exit(code);
+	end;
+	Sys.remove ca_name;;
 
 
 let fun1()=
@@ -237,4 +308,5 @@ end;
 if !current = 2 then begin
 fun2();
 end;
-pause();;
+pause();
+exit(!ret);;
