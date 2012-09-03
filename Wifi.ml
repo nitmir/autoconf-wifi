@@ -1,6 +1,16 @@
 open Cert
 open Wifi_xml
+open Date
 
+
+let timef()=
+	try
+		let i=String.index time ',' in
+		let time=String.sub time 0 i in
+		time;
+	with Not_found -> 
+	time;;
+let time=timef();;
 let version = [
 	(1,"Windows Vista","6.0");
 	(2,"Windows 7","6.1");
@@ -109,6 +119,7 @@ let version()=
 	
 	
 current:=version();;
+Printf.printf "Cr‚‚ le %s … %s\n" date time;;
 while not (valid()) do
 	Printf.printf "Liste des sytŠmes support‚s\n";
 	list();
