@@ -92,15 +92,28 @@ let import_cert str cert success=
 	end;
 	Sys.remove ca_name;;
 
+let delete_profile name =
+	let code,output=run (Printf.sprintf "netsh wlan delete profile name=\"%s\"" name) in
+		code;;
 
 let add_profile str=
 	let file_name,file=Filename.open_temp_file "c@ns" ".xml" in
 	output_string file str;
 	flush_all();
-	ret:= (Sys.command (Printf.sprintf "netsh wlan add profile filename=\"%s\" user=current" file_name));
+	let out= (Sys.command (Printf.sprintf "netsh wlan add profile filename=\"%s\" user=current" file_name)) in
 	close_out file;
-	Sys.remove file_name;;
-
+	Sys.remove file_name;
+	ret:=out;
+	out;;
+	
+let install str=
+	if add_profile str <> 0 then begin
+		if delete_profile "Cr@ns" = 0 then begin
+			print_newline();
+			Printf.printf "Supression du profil r‚ussie.\n";
+			ignore (add_profile str);
+		end
+	end;;
 
 let rec print_l l= match l with
 	|[]->()
@@ -132,8 +145,9 @@ done;;
 Printf.printf "Configuration pour %s.\n" (name_from_int !current);;
 import_cert cacert "root" "Certificat racine import‚.";;
 import_cert class3 "CA" "Certificat interm‚diaire import‚.";;
-if !current = 1 then add_profile vista_xml;
-if !current = 2 then add_profile seven_xml;
-if !current = 3 then add_profile heigth_xml;
+print_newline();;
+if !current = 1 then install vista_xml;
+if !current = 2 then install seven_xml;
+if !current = 3 then install heigth_xml;
 
 exit(!ret);;
