@@ -14,7 +14,7 @@ let time=timef();;
 let version = [
 	(1,"Windows Vista","6.0");
 	(2,"Windows 7","6.1");
-	(*(3,"Windows 8","6.2")*)
+	(3,"Windows 8","6.2")
 	];;
 
 let pause()=
