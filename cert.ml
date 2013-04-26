@@ -1,5 +1,8 @@
-
-let class3="-----BEGIN CERTIFICATE-----
+(* list of (store, comment, certificate) where store is the store where windows shall stores the certificate and comment a string display to the user after importinf the certificate. *)
+let certificates = [ 
+(* Ca Cert class3 certificate *)
+("CA", "Certificat interm‚diaire import‚.",
+"-----BEGIN CERTIFICATE-----
 MIIHWTCCBUGgAwIBAgIDCkGKMA0GCSqGSIb3DQEBCwUAMHkxEDAOBgNVBAoTB1Jv
 b3QgQ0ExHjAcBgNVBAsTFWh0dHA6Ly93d3cuY2FjZXJ0Lm9yZzEiMCAGA1UEAxMZ
 Q0EgQ2VydCBTaWduaW5nIEF1dGhvcml0eTEhMB8GCSqGSIb3DQEJARYSc3VwcG9y
@@ -41,9 +44,11 @@ ebJSoMbxhbQljPI/lrMQ2Y1sVzufb4Y6GIIiNsiwkTjbKqGTqoQ/9SdlrnPVyNXT
 d+pLncdBu8fA46A/5H2kjXPmEkvfoXNzczqA6NXLji/L6hOn1kGLrPo8idck9U60
 4GGSt/M3mMS+lqO3ig==
 -----END CERTIFICATE-----
-";;
+");
 
-let cacert="-----BEGIN CERTIFICATE-----
+(* CAcert root certificate *)
+("root","Certificat racine import‚.",
+"-----BEGIN CERTIFICATE-----
 MIIHPTCCBSWgAwIBAgIBADANBgkqhkiG9w0BAQQFADB5MRAwDgYDVQQKEwdSb290
 IENBMR4wHAYDVQQLExVodHRwOi8vd3d3LmNhY2VydC5vcmcxIjAgBgNVBAMTGUNB
 IENlcnQgU2lnbmluZyBBdXRob3JpdHkxITAfBgkqhkiG9w0BCQEWEnN1cHBvcnRA
@@ -84,4 +89,6 @@ GCSNe9FINSkYQKyTYOGWhlC0elnYjyELn8+CkcY7v2vcB5G5l1YjqrZslMZIBjzk
 zk6q5PYvCdxTby78dOs6Y5nCpqyJvKeyRKANihDjbPIky/qbn3BHLt4Ui9SyIAmW
 omTxJBzcoTWcFbLUvFUufQb1nA5V9FrWk9p2rSVzTMVD
 -----END CERTIFICATE-----
-";;
+")
+
+];;

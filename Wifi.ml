@@ -11,11 +11,6 @@ let timef()=
 	with Not_found -> 
 	time;;
 let time=timef();;
-let version = [
-	(1,"Windows Vista","6.0");
-	(2,"Windows 7","6.1");
-	(3,"Windows 8","6.2")
-	];;
 
 let pause()=
 	Printf.printf "Appuyer sur une touche pour continuer\n";
@@ -29,29 +24,29 @@ let current = ref 0;;
 let list()=
 	let rec aux l=match l with
 		| [] -> ()
-		| (i,s,_)::q -> Printf.printf "	(%d) %s\n" i s;aux q in
-	aux version;;
+		| (i,s,_,_)::q -> Printf.printf "	(%d) %s\n" i s;aux q in
+	aux wifi_profiles;;
 	
 let valid()=
 	let rec aux l=match l with
 		| [] -> false
-		| (i,s,_)::q when !current=i -> true
-		| (i,s,_)::q -> aux q in
-	aux version;;
+		| (i,s,_,_)::q when !current=i -> true
+		| (i,s,_,_)::q -> aux q in
+	aux wifi_profiles;;
 	
 let get_from_version str  = 
 	let rec aux l = match l with
 		| [] -> 0
-		| (i,_,s)::q when s=str -> i
-		| (i,_,s)::q -> aux q in
-	aux version;;
+		| (i,_,s,_)::q when s=str -> i
+		| (i,_,s,_)::q -> aux q in
+	aux wifi_profiles;;
 	
 let name_from_int int = 
 	let rec aux l = match l with
 		| [] -> ""
-		| (i,name,_)::q when i=int -> name
+		| (i,name,_,_)::q when i=int -> name
 		| a::q -> aux q in
-	aux version;;
+	aux wifi_profiles;;
 
 let run str=
 	let tmp_name=Filename.temp_file "tmp" ".txt" in
@@ -91,7 +86,13 @@ let import_cert str cert success=
 			exit(code);
 	end;
 	Sys.remove ca_name;;
-
+	
+let import_certs()=
+	let rec aux l = match l with
+		| [] -> ()
+		| (store, comm, cert)::q -> import_cert cert store comm; aux q in
+	aux certificates;;
+	
 let delete_profile name =
 	let code,output=run (Printf.sprintf "netsh wlan delete profile name=\"%s\"" name) in
 		code;;
@@ -115,6 +116,13 @@ let install str=
 		end
 	end;;
 
+let install_profile int=
+	let rec aux l = match l with
+		| [] -> failwith "Invalid profile number";
+		| (i,_,_,xml)::q when i = int ->  install xml;
+		| x::q -> aux q in
+	aux wifi_profiles;;
+	
 let rec print_l l= match l with
 	|[]->()
 	|s::q -> print_string (s^"\n");print_l q;;
@@ -142,12 +150,9 @@ while not (valid()) do
 		Scanf.bscanf Scanf.Scanning.stdib "%s\n" (fun a ->current:=int_of_string a);
 	with Failure("int_of_string") ->();
 done;;
-Printf.printf "Configuration pour %s.\n" (name_from_int !current);;
-import_cert cacert "root" "Certificat racine import‚.";;
-import_cert class3 "CA" "Certificat interm‚diaire import‚.";;
+Printf.printf "Configuration pour %s.\n" (name_from_int !current);; 
+import_certs();;
 print_newline();;
-if !current = 1 then install vista_xml;
-if !current = 2 then install seven_xml;
-if !current = 3 then install heigth_xml;
+install_profile !current;;
 
 exit(!ret);;
