@@ -1,5 +1,5 @@
 @echo off
-PATH=%PATH%;C:\cygwin\bin;C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin
+PATH=%PATH%;C:\cygwin\bin
 set CYGWIN=nodosfilewarning
 
 echo Building Wifi.exe
