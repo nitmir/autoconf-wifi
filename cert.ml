@@ -1,5 +1,5 @@
 (* list of (store, comment, certificate) where store is the store where windows shall stores the certificate and comment a string display to the user after importinf the certificate. *)
-let certificates = [ 
+let certificates = [
 (* Ca Cert class3 certificate *)
 ("CA", "Certificat interm‚diaire import‚.",
 "-----BEGIN CERTIFICATE-----

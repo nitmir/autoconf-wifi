@@ -6,7 +6,7 @@ echo Building Wifi.exe
 
 echo let date="%DATE%" and time="%TIME%";; > date.ml
 
-i686-w64-mingw32-windres -o resources.o resources.rc
+i686-w64-mingw32-windres -o resources.o Wifi.rc
 ocamlopt -c date.ml
 ocamlopt -c cert.ml
 ocamlopt -c wifi_xml.ml

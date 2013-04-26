@@ -1,4 +1,4 @@
-(* list of (int, name, version, xml) where : 
+(* list of (int, name, version, xml) where :
   * int is the number of the profile
   * name is a string displayed to the user
   * version is the two first digit of the windows version returned vy "ver"
@@ -198,7 +198,7 @@ let wifi_profiles = [
 										<PerformServerValidation xmlns=\"http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2\">true</PerformServerValidation>
 										<AcceptServerName xmlns=\"http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2\">true</AcceptServerName>
 										<PeapExtensionsV2 xmlns=\"http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2\">
-											<AllowPromptingWhenServerCANotFound xmlns=\"http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV3\">true</AllowPromptingWhenServerCANotFound> 
+											<AllowPromptingWhenServerCANotFound xmlns=\"http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV3\">true</AllowPromptingWhenServerCANotFound>
 										</PeapExtensionsV2>
 									</PeapExtensions>
 								</EapType>

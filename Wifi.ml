@@ -8,7 +8,7 @@ let timef()=
 		let i=String.index time ',' in
 		let time=String.sub time 0 i in
 		time;
-	with Not_found -> 
+	with Not_found ->
 	time;;
 let time=timef();;
 
@@ -26,22 +26,22 @@ let list()=
 		| [] -> ()
 		| (i,s,_,_)::q -> Printf.printf "	(%d) %s\n" i s;aux q in
 	aux wifi_profiles;;
-	
+
 let valid()=
 	let rec aux l=match l with
 		| [] -> false
 		| (i,s,_,_)::q when !current=i -> true
 		| (i,s,_,_)::q -> aux q in
 	aux wifi_profiles;;
-	
-let get_from_version str  = 
+
+let get_from_version str  =
 	let rec aux l = match l with
 		| [] -> 0
 		| (i,_,s,_)::q when s=str -> i
 		| (i,_,s,_)::q -> aux q in
 	aux wifi_profiles;;
-	
-let name_from_int int = 
+
+let name_from_int int =
 	let rec aux l = match l with
 		| [] -> ""
 		| (i,name,_,_)::q when i=int -> name
@@ -86,13 +86,13 @@ let import_cert str cert success=
 			exit(code);
 	end;
 	Sys.remove ca_name;;
-	
+
 let import_certs()=
 	let rec aux l = match l with
 		| [] -> ()
 		| (store, comm, cert)::q -> import_cert cert store comm; aux q in
 	aux certificates;;
-	
+
 let delete_profile name =
 	let code,output=run (Printf.sprintf "netsh wlan delete profile name=\"%s\"" name) in
 		code;;
@@ -106,7 +106,7 @@ let add_profile str=
 	Sys.remove file_name;
 	ret:=out;
 	out;;
-	
+
 let install str=
 	if add_profile str <> 0 then begin
 		if delete_profile "Cr@ns" = 0 then begin
@@ -122,13 +122,13 @@ let install_profile int=
 		| (i,_,_,xml)::q when i = int ->  install xml;
 		| x::q -> aux q in
 	aux wifi_profiles;;
-	
+
 let rec print_l l= match l with
 	|[]->()
 	|s::q -> print_string (s^"\n");print_l q;;
 
 let version()=
-	try 
+	try
 		let ret,output=run "ver" in
 		let reg=Str.regexp " " in
 		let ver=Array.of_list (Str.split reg output.(1)) in
@@ -137,8 +137,8 @@ let version()=
 		let ver=(ver.(0) ^"."^ ver.(1) ) in
 		get_from_version ver;
 	with _ -> 0;;
-	
-	
+
+
 current:=version();;
 Printf.printf "Cr‚‚ le %s … %s\n" date time;;
 while not (valid()) do
@@ -150,7 +150,7 @@ while not (valid()) do
 		Scanf.bscanf Scanf.Scanning.stdib "%s\n" (fun a ->current:=int_of_string a);
 	with Failure("int_of_string") ->();
 done;;
-Printf.printf "Configuration pour %s.\n" (name_from_int !current);; 
+Printf.printf "Configuration pour %s.\n" (name_from_int !current);;
 import_certs();;
 print_newline();;
 install_profile !current;;
