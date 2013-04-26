@@ -7,7 +7,7 @@
 
 let wifi_profiles = [
 (* Windows Vista profile *)
-(1, "Windows Wista", "6.0",
+(1, "Windows Vista", "6.0",
 "<?xml version=\"1.0\"?>
 <WLANProfile xmlns=\"http://www.microsoft.com/networking/WLAN/profile/v1\">
 	<name>Cr@ns</name>

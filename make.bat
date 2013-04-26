@@ -31,3 +31,6 @@ ResHacker.exe -addoverwrite "Wifi.exe", "Wifi.exe", "Wifi.ico", ICONGROUP, MAINI
 
 echo done
 pause
+
+del ResHacker.ini
+del ResHacker.log
