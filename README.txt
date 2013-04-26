@@ -1,4 +1,5 @@
-Autoconfiguration tool for WPA2 enterprise WiFi for windows vista, windows 7 and windows 8.
+Autoconfiguration tool for WPA2 enterprise WiFi for windows vista, windows 7 
+and windows 8.
 
 the file cert.ml contains a list of CA certificate of the radius server.
 If your CA is already known by windows, you can juste leave an empty list.
@@ -13,15 +14,10 @@ interface and to export it with the following command :
   netsh wlan export profile name="profile_name" folder="C:"
 
 requirement : 
- * Ocaml compiler (the easiest way is installing it via cygwin)
- 
-Third party optional apps : 
- * mt.exe (Microsoft Manifest Tool) available in the "Microsoft Windows SDK
-for Windows 7 and .NET Framework 4", only the "win32 tools" part is needed.
-This is require in order to ask the administrator right for the application.
- * A resource editor (optinal) in order to add an icon to the executable. For
-this purpose, the last version of Resource Hacker (http://www.angusj.com/resourcehacker/) is provided 
- 
+ * Ocaml compiler (the easiest way is installing it via cygwin on windows or 
+mingw-ocaml on debian like systems)
+ * mingw resources compiler (via cygwin or mingw-w64-tools on debian like 
+systems) 
  
 You may need to edit the PATH variable in make.bat the feet to your
 environment.
