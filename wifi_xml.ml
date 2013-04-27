@@ -212,4 +212,4 @@ let wifi_profiles = [
 </WLANProfile>
 ");
 
-];;
+]
