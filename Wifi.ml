@@ -13,9 +13,13 @@ let timef()=
 let time=timef()
 
 let pause()=
-	Printf.printf "Appuyer sur une touche pour continuer\n";
+	Printf.printf "%s\n" Messages.pause;
 	flush_all();
 	Scanf.bscanf Scanf.Scanning.stdib "%s" (fun a ->())
+
+let pause_exit int =
+	pause();
+	exit int
 
 let system_list()=
 	let rec aux l=match l with
@@ -76,7 +80,7 @@ let import_certs()=
 					Printf.printf "%s\n" (output.(j))
 				done;
 				Sys.remove ca_name;
-				exit(code)
+				pause_exit(code)
 		end;
 		Sys.remove ca_name in
 
@@ -103,14 +107,14 @@ let install_profile int=
 		in
 		let ret = add_profile str in
 		if ret <> 0 then begin
-			if delete_profile "Cr@ns" = 0 then begin
-				Printf.printf "\nSupression du profil r‚ussie.\n";
+			if delete_profile Config.profile_name = 0 then begin
+				Printf.printf "\n%s\n" Messages.profile_deleted;
 				add_profile str
 			end else ret
 		end else ret
 	in
 	let rec aux l = match l with
-		| [] -> failwith "Invalid profile number"
+		| [] -> failwith Messages.invalid_profil_num
 		| (i,_,_,xml)::q when i = int ->  install xml
 		| x::q -> aux q in
 	aux wifi_profiles
@@ -127,7 +131,7 @@ let profile_from_system_version()=
 	with _ -> (-1)
 
 let configure profile =
-	Printf.printf "Configuration pour %s.\n" (name_from_int profile);
+	Printf.printf "%s %s.\n" Messages.configuring_profile_for (name_from_int profile);
 	import_certs();
 	print_newline();
 	install_profile profile
@@ -136,7 +140,7 @@ let rec retrive_profile profile =
 	if valid profile then profile
 	else begin
 		if profile = 0 then exit(0);
-		Printf.printf "%s" "Entrez un num‚ro et validez (0 pour quitter): ";
+		Printf.printf "%s" Messages.get_profile_number;
 		flush_all();
 		try Scanf.bscanf Scanf.Scanning.stdib "%s\n" (fun a ->retrive_profile (int_of_string a))
 		with Failure("int_of_string") ->retrive_profile profile
@@ -145,16 +149,15 @@ let rec retrive_profile profile =
 let main() =
 	Sys.catch_break true;
 	try
-		Printf.printf "Cr‚‚ le %s … %s\n" date time;
+		Messages.date_and_time date time;
 		let profile = profile_from_system_version() in
 		if valid profile then configure profile
 		else begin
-			Printf.printf "Liste des sytŠmes support‚s\n";
+			Printf.printf "%s\n" Messages.system_list;
 			system_list();
 			let profile = retrive_profile profile in
 			configure profile
 		end
 	with Sys.Break -> print_newline(); exit(0)
 
-let ret = main()
-let _ = pause() and _ = exit(ret)
+let _ = pause_exit (main())

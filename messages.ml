@@ -1,0 +1,7 @@
+let pause = "Appuyer sur une touche pour continuer"
+let profile_deleted = "Supression du profil r‚ussie."
+let invalid_profil_num = "Invalid profile number"
+let configuring_profile_for = "Configuration pour"
+let get_profile_number = "Entrez un num‚ro et validez (0 pour quitter): "
+let date_and_time = Printf.printf  "Cr‚‚ le %s … %s\n"
+let system_list = "Liste des sytŠmes support‚s"
