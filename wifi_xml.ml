@@ -79,14 +79,14 @@ let genere_profil_xml
 				"<EAPConfig>
 					<EapHostConfig xmlns=\"http://www.microsoft.com/provisioning/EapHostConfig\">
 						<EapMethod>
-							<Type xmlns=\"http://www.microsoft.com/provisioning/EapCommon\">" ^ eap_method_type ^ "</Type>
+							<Type xmlns=\"http://www.microsoft.com/provisioning/EapCommon\">" ^ (string_of_int eap_method_type) ^ "</Type>
 							<VendorId xmlns=\"http://www.microsoft.com/provisioning/EapCommon\">0</VendorId>
 							<VendorType xmlns=\"http://www.microsoft.com/provisioning/EapCommon\">0</VendorType>
 							<AuthorId xmlns=\"http://www.microsoft.com/provisioning/EapCommon\">0</AuthorId>
 						</EapMethod>
 						<Config xmlns=\"http://www.microsoft.com/provisioning/EapHostConfig\">
 							<Eap xmlns=\"http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1\">
-								<Type>" ^ eap_method_type ^ "</Type>
+								<Type>" ^ (string_of_int eap_method_type) ^ "</Type>
 								<EapType xmlns=\"http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV1\">
 									<ServerValidation>
 										<DisableUserPromptForServerValidation>" ^ (if user_prompt_for_server_validation then "false" else "true") ^ "</DisableUserPromptForServerValidation>
