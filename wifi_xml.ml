@@ -30,6 +30,11 @@ let genere_profil_xml
 	~server_name:server_name
 	~root_ca:root_ca
 	~fast_reconnect:fast_reconnect
+	~enable_quarantine_checks:enable_quarantine_checks
+	~require_crypto_binding:require_crypto_binding
+	~perform_server_validation:perform_server_validation
+	~accept_server_name:accept_server_name
+	~eap_method_type:eap_method_type
 
 	()
 
@@ -74,14 +79,14 @@ let genere_profil_xml
 				"<EAPConfig>
 					<EapHostConfig xmlns=\"http://www.microsoft.com/provisioning/EapHostConfig\">
 						<EapMethod>
-							<Type xmlns=\"http://www.microsoft.com/provisioning/EapCommon\">25</Type>
+							<Type xmlns=\"http://www.microsoft.com/provisioning/EapCommon\">" ^ eap_method_type ^ "</Type>
 							<VendorId xmlns=\"http://www.microsoft.com/provisioning/EapCommon\">0</VendorId>
 							<VendorType xmlns=\"http://www.microsoft.com/provisioning/EapCommon\">0</VendorType>
 							<AuthorId xmlns=\"http://www.microsoft.com/provisioning/EapCommon\">0</AuthorId>
 						</EapMethod>
 						<Config xmlns=\"http://www.microsoft.com/provisioning/EapHostConfig\">
 							<Eap xmlns=\"http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1\">
-								<Type>25</Type>
+								<Type>" ^ eap_method_type ^ "</Type>
 								<EapType xmlns=\"http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV1\">
 									<ServerValidation>
 										<DisableUserPromptForServerValidation>" ^ (if user_prompt_for_server_validation then "false" else "true") ^ "</DisableUserPromptForServerValidation>
@@ -96,11 +101,11 @@ let genere_profil_xml
 											<UseWinLogonCredentials>false</UseWinLogonCredentials>
 										</EapType>
 									</Eap>
-									<EnableQuarantineChecks>false</EnableQuarantineChecks>
-									<RequireCryptoBinding>false</RequireCryptoBinding>
+									<EnableQuarantineChecks>" ^ (if enable_quarantine_checks then "true" else "false") ^"</EnableQuarantineChecks>
+									<RequireCryptoBinding>" ^ (if require_crypto_binding then "true" else "false" ) ^ "</RequireCryptoBinding>
 									<PeapExtensions>
-										<PerformServerValidation xmlns=\"http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2\">true</PerformServerValidation>
-										<AcceptServerName xmlns=\"http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2\">true</AcceptServerName>" ^
+										<PerformServerValidation xmlns=\"http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2\">" ^ (if perform_server_validation then "true" else "false") ^ "</PerformServerValidation>
+										<AcceptServerName xmlns=\"http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2\">" ^ (if accept_server_name then "true" else "false") ^ "</AcceptServerName>" ^
 										(match allow_prompt_when_ca_not_found with
 											| None -> "\n"
 											| Some bool ->
@@ -128,7 +133,13 @@ let wifi_profiles = [
 	~user_prompt_for_server_validation:user_prompt_for_server_validation
 	~server_name:server_name
 	~root_ca:root_ca
-	~fast_reconnect:fast_reconnect ());
+	~fast_reconnect:fast_reconnect
+	~enable_quarantine_checks:enable_quarantine_checks
+	~require_crypto_binding:require_crypto_binding
+	~perform_server_validation:perform_server_validation
+	~accept_server_name:accept_server_name
+	~eap_method_type:eap_method_type
+	());
 
 (* Windows 7 profile *)
 (2, "Windows 7", "6.1",genere_profil_xml
@@ -138,6 +149,11 @@ let wifi_profiles = [
 	~server_name:server_name
 	~root_ca:root_ca
 	~fast_reconnect:fast_reconnect
+	~enable_quarantine_checks:enable_quarantine_checks
+	~require_crypto_binding:require_crypto_binding
+	~perform_server_validation:perform_server_validation
+	~accept_server_name:accept_server_name
+	~eap_method_type:eap_method_type
 
 	~fips:(Some fips)
 	~cache_pmk:(Some cache_pmk)
@@ -153,6 +169,11 @@ let wifi_profiles = [
 	~server_name:server_name
 	~root_ca:root_ca
 	~fast_reconnect:fast_reconnect
+	~enable_quarantine_checks:enable_quarantine_checks
+	~require_crypto_binding:require_crypto_binding
+	~perform_server_validation:perform_server_validation
+	~accept_server_name:accept_server_name
+	~eap_method_type:eap_method_type
 
 	~fips:(Some fips)
 	~cache_pmk:(Some cache_pmk)
