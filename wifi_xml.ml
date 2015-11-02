@@ -183,4 +183,26 @@ let wifi_profiles = [
 	~allow_prompt_when_ca_not_found:(Some allow_prompt_when_ca_not_found)
 	());
 
+(* Windows 10 profile *)
+(4, "Windows 10", "10.0",genere_profil_xml
+	~profile_name:profile_name
+	~ssid_name:ssid_name
+	~user_prompt_for_server_validation:user_prompt_for_server_validation
+	~server_name:server_name
+	~root_ca:root_ca
+	~fast_reconnect:fast_reconnect
+	~enable_quarantine_checks:enable_quarantine_checks
+	~require_crypto_binding:require_crypto_binding
+	~perform_server_validation:perform_server_validation
+	~accept_server_name:accept_server_name
+	~eap_method_type:eap_method_type
+
+	~fips:(Some fips)
+	~cache_pmk:(Some cache_pmk)
+	~cache_user_data:(Some cache_user_data)
+	~auth_mode:(Some auth_mode)
+
+	~allow_prompt_when_ca_not_found:(Some allow_prompt_when_ca_not_found)
+	());
+
 ]
